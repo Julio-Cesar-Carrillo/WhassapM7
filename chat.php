@@ -9,8 +9,7 @@
 </head>
 
 <body>
-    <h1><?php
-        echo 'Estas teniendo una conversasion con: ' . $_GET['nom'] ?></h1>
+    <h1><?php echo 'Estas teniendo una conversasion con: ' . $_GET['nom'] ?></h1>
 </body>
 
 </html>
