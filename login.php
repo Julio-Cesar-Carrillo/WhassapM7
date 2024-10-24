@@ -38,6 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $_SESSION['nick'] = $fila['nick_usu'];
                     $_SESSION['nombre'] = $fila['nom_usu'];
                     header('location: perfil.php');
+                } else {
+                    $_SESSION['error_password'] = "Comprueba el nick y el password";
                 }
             } else {
                 $_SESSION['error_password'] = "Comprueba el nick y el password";
