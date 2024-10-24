@@ -18,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Redirigir a la misma página para mostrar los errores.
     if (isset($_SESSION['error_username']) || isset($_SESSION['error_password'])) {
         header("Location: index.php");
-        exit();
     }
     try {
         include "./conexion.php";
@@ -29,18 +28,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $sql = "SELECT * FROM tbl_usuarios WHERE nick_usu=?";
         $stmt = mysqli_stmt_init($con);
         if (mysqli_stmt_prepare($stmt, $sql)) {
-            mysqli_stmt_bind_param($stmt, "s", $name);
+            mysqli_stmt_bind_param($stmt, "s", $username);
             mysqli_stmt_execute($stmt);
             $resultado = mysqli_stmt_get_result($stmt);
             $num_rows = mysqli_num_rows($resultado);
             if ($num_rows > 0) {
                 $fila = mysqli_fetch_assoc($resultado);
-                if (password_verify($pwd, $fila['pwd_usu'])) {
-                    session_start();
+                if (password_verify($password, $fila['pwd_usu'])) {
                     $_SESSION['nick'] = $fila['nick_usu'];
                     $_SESSION['nombre'] = $fila['nom_usu'];
                     header('location: perfil.php');
                 }
+            } else {
+                $_SESSION['error_password'] = "Comprueba el nick y el password";
             }
         }
         mysqli_stmt_close($stmt);
@@ -49,7 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         mysqli_close($con);
         die();
     }
+} else {
+    // Redirigir si accede a esta página sin POST
+    header("Location: index.php");
+    exit();
 }
-// Redirigir si accede a esta página sin POST
-header("Location: index.php");
-exit();
