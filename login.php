@@ -22,9 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Redirigir a la misma página para mostrar los errores.
     if (isset($_SESSION['error_username']) || isset($_SESSION['error_password'])) {
         header("Location: index.php");
-        exit();
     }
-
     try {
         include "./conexion.php";
         // $name = mysqli_real_escape_string($con, $_POST['nick']);
@@ -43,7 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($num_rows > 0) {
                 $fila = mysqli_fetch_assoc($resultado);
                 if (password_verify($password, $fila['pwd_usu'])) {
-                    session_start();
                     $_SESSION['nick'] = $fila['nick_usu'];
                     $_SESSION['nombre'] = $fila['nom_usu'];
                     header('location: perfil.php');

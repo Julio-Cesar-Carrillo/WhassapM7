@@ -20,12 +20,12 @@ session_start();
         <form method="POST" action="login.php">
             <div class="mb-3">
                 
-                <input type="text" name="username" class="form-control" placeholder="Nombre de Usuario" >
+                <input type="text" name="username" class="form-control" placeholder="Nombre de Usuario" value="darckfer">
                 <span class="text-danger"><?php echo isset($_SESSION['error_username']) ? $_SESSION['error_username'] : ''; ?></span>
 
             </div>
             <div class="mb-3">
-                <input type="password" name="password" class="form-control" placeholder="Contraseña" >
+                <input type="password" name="password" class="form-control" placeholder="Contraseña" value="qweQWE123">
                 <span class="text-danger"><?php echo isset($_SESSION['error_password']) ? $_SESSION['error_password'] : ''; ?></span>
 
             </div>
