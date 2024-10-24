@@ -2,7 +2,7 @@
 // Iniciar sesión
 session_start();
 
-$_SESSION['error_username'] = $_SESSION['error_password'] = "";
+$_SESSION['error_username'] = $_SESSION['error_password'] = $_SESSION['user_noexiste'] = "";
 // Manejar el inicio de sesión
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Obtener y sanear los campos.
@@ -45,6 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $_SESSION['nombre'] = $fila['nom_usu'];
                     header('location: perfil.php');
                 }
+            } else {
+                $_SESSION['error_password'] = "Comprueba el nick y el password";
             }
         }
         mysqli_stmt_close($stmt);

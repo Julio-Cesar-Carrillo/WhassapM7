@@ -4,6 +4,7 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,15 +12,16 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="form-container text-center">
         <!-- Formulario de Inicio de Sesión -->
-        <img src="./logo (2).png" alt="Iniciar Sesión"  style="width: 100px; height: 100px; vertical-align: middle; margin-right: 20px;">
+        <img src="./logo (2).png" alt="Iniciar Sesión" style="width: 100px; height: 100px; vertical-align: middle; margin-right: 20px;">
 
         <h2>Iniciar Sesión</h2>
         <form method="POST" action="login.php">
             <div class="mb-3">
-                
+
                 <input type="text" name="username" class="form-control" placeholder="Nombre de Usuario" value="darckfer">
                 <span class="text-danger"><?php echo isset($_SESSION['error_username']) ? $_SESSION['error_username'] : ''; ?></span>
 
@@ -27,7 +29,7 @@ session_start();
             <div class="mb-3">
                 <input type="password" name="password" class="form-control" placeholder="Contraseña" value="qweQWE123">
                 <span class="text-danger"><?php echo isset($_SESSION['error_password']) ? $_SESSION['error_password'] : ''; ?></span>
-
+                <span class="text-danger"><?php echo isset($_SESSION['user_noexiste']) ? $_SESSION['user_noexiste'] : ''; ?></span>
             </div>
             <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="rememberMe">
@@ -50,27 +52,27 @@ session_start();
         <h2>Registrarse</h2>
         <form method="POST" action="register.php">
             <div class="mb-3">
-                <input type="text" name="name" class="form-control" placeholder="Nombre" >
+                <input type="text" name="name" class="form-control" placeholder="Nombre">
                 <span class="text-danger"><?php echo isset($_SESSION['error_nombre']) ? $_SESSION['error_nombre'] : ''; ?></span>
 
             </div>
             <div class="mb-3">
-                <input type="text" name="nick" class="form-control" placeholder="Nick" >
+                <input type="text" name="nick" class="form-control" placeholder="Nick">
                 <span class="text-danger"><?php echo isset($_SESSION['error_email']) ? $_SESSION['error_email'] : ''; ?></span>
 
             </div>
             <div class="mb-3">
-                <input type="email" name="email" class="form-control" placeholder="Correo Electrónico" >
+                <input type="email" name="email" class="form-control" placeholder="Correo Electrónico">
                 <span class="text-danger"><?php echo isset($_SESSION['error_password']) ? $_SESSION['error_password'] : ''; ?></span>
 
             </div>
             <div class="mb-3">
-                <input type="password" name="password" class="form-control" placeholder="Contraseña" >
+                <input type="password" name="password" class="form-control" placeholder="Contraseña">
                 <span class="text-danger"><?php echo isset($_SESSION['error_repetir_password']) ? $_SESSION['error_repetir_password'] : ''; ?></span>
 
             </div>
             <div class="mb-3">
-                <input type="password" name="confirm_password" class="form-control" placeholder="Repetir Contraseña" >
+                <input type="password" name="confirm_password" class="form-control" placeholder="Repetir Contraseña">
             </div>
             <button type="submit" class="btn btn-primary w-100">Registrarse</button>
         </form>
@@ -88,4 +90,5 @@ session_start();
         }
     </script>
 </body>
+
 </html>
