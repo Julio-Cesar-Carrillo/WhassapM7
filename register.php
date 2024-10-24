@@ -1,7 +1,7 @@
 <?php
 // Iniciar sesión
 session_start();
-
+$_SESSION['frnreegister'] = 'si';
 // Inicializar variables de error en blanco
 $_SESSION['error_nombre'] = $_SESSION['error_nick'] = $_SESSION['error_email'] = $_SESSION['error_password'] = $_SESSION['error_repetir_password'] = "";
 
@@ -66,12 +66,45 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit();
     }
 
-    // Si no hay errores, proceder a redirigir a una página de éxito (sin base de datos)
-    // Aquí puedes redirigir al usuario a una página de éxito o login.
-    header("Location: perfil.php");
-    exit();
+    // Si no hay errores, proceder a insertar el usuario en la base de datos
+    try {
+        include "./conexion.php";
+        
+        // Cifrar la contraseña antes de guardarla
+        $password_hashed = password_hash($password_register, PASSWORD_DEFAULT);
+        
+        // Preparar la consulta SQL
+        $sql = "INSERT INTO tbl_usuarios (nom_usu, nick_usu, email_usu, pwd_usu) VALUES (?, ?, ?, ?)";
+        $stmt = mysqli_stmt_init($con);
+
+        if (mysqli_stmt_prepare($stmt, $sql)) {
+            mysqli_stmt_bind_param($stmt, "ssss", $nombre_registro, $nick_registro, $email_registro, $password_hashed);
+            mysqli_stmt_execute($stmt);
+
+            // Cerrar la conexión
+            mysqli_stmt_close($stmt);
+            mysqli_close($con);
+            // Deshacer los cambios en caso de error
+
+            // Redirigir al login o a una página de éxito
+            header("Location: login.php");
+            echo "correcto";
+            exit();
+        } else {
+
+            throw new Exception("Error al preparar la consulta SQL.");
+        }
+
+    } catch (Exception $e) {
+        // Deshacer los cambios en caso de error
+        mysqli_rollback($conn);
+
+        echo "Error: " . $e->getMessage();
+        exit();
+    }
 }
 
 // Redirigir si se accede a esta página sin usar POST
 header("Location: index.php");
 exit();
+?>
