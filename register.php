@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Si no hay errores, proceder a redirigir a una página de éxito (sin base de datos)
     // Aquí puedes redirigir al usuario a una página de éxito o login.
-    header("Location: exito.php");
+    header("Location: perfil.php");
     exit();
 }
 

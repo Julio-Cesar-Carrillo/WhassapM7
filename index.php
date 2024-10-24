@@ -53,7 +53,7 @@ session_start();
         <form method="POST" action="register.php">
             <div class="mb-3">
                 <input type="text" name="nombre_registro" class="form-control" placeholder="Nombre">
-                <span class="text-danger"><?php echo isset($_SESSION['nombre_registro']) ? $_SESSION['nombre_registro'] : ''; ?></span>
+                <span class="text-danger"><?php echo isset($_SESSION['error_nombre']) ? $_SESSION['error_nombre'] : ''; ?></span>
 
             </div>
             <div class="mb-3">
