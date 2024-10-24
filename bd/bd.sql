@@ -21,7 +21,7 @@ CREATE TABLE `tbl_amistad` (
     `id_amistad` INT(3) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `id_emisor` INT(3) NOT NULL,
     `id_receptor` INT(3) NOT NULL,
-    `boamistad` BIT NOT NULL,
+    `boamistad` BOOLEAN NOT NULL,
     CONSTRAINT `fk_amistad_emisor` FOREIGN KEY (`id_emisor`) REFERENCES `tbl_usuarios`(`id_usu`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `fk_amistad_receptor` FOREIGN KEY (`id_receptor`) REFERENCES `tbl_usuarios`(`id_usu`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;

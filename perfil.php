@@ -3,6 +3,9 @@ session_start();
 if (!isset($_SESSION['nick'])) {
     header('location:index.php');
 } else {
+
+    include './conexion.php';
+
     $nick = $_SESSION['nick'];
     $nombre = $_SESSION['nombre'];
 ?>
@@ -18,6 +21,9 @@ if (!isset($_SESSION['nick'])) {
 
     <body>
         <h1>Bienvenido <?php echo $nick ?></h1>
+        <?php
+        include './procesos_perfil/amigos.php';
+        ?>
     </body>
 
     </html>
