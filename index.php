@@ -16,7 +16,7 @@ session_start();
 <body>
     <div class="form-container text-center">
         <!-- Formulario de Inicio de Sesión -->
-        <img src="./logo (2).png" alt="Iniciar Sesión" style="width: 100px; height: 100px; vertical-align: middle; margin-right: 20px;">
+        <img src="./img/logo (2).png" alt="Iniciar Sesión" style="width: 100px; height: 100px; vertical-align: middle; margin-right: 20px;">
 
         <h2>Iniciar Sesión</h2>
         <form method="POST" action="login.php">
