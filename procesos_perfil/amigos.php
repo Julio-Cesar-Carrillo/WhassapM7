@@ -12,21 +12,26 @@ $sql = "SELECT a.*,
 $stmt = mysqli_prepare($con, $sql);
 mysqli_stmt_execute($stmt);
 $resultado = mysqli_stmt_get_result($stmt);
-foreach ($resultado as $fila) {
 ?>
-    <table class="table" border="1px">
-        <thead>
-            <tr>
-                <th scope="col">Amigo</th>
-                <th scope="col">acciones</th>
-            </tr>
-        </thead>
-        <tbody>
+<table class="table" border="1px">
+    <thead>
+        <tr>
+            <th scope="col">Amigo</th>
+            <th scope="col">acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach ($resultado as $fila) {
+        ?>
+
             <tr>
                 <td><?php echo $fila['id_emisor'] == $id ? $fila['receptor'] : $fila['emisor']; ?></td>
                 </td>
             </tr>
-        </tbody>
-    </table>
-<?php
-}
+
+        <?php
+        }
+        ?>
+    </tbody>
+</table>
