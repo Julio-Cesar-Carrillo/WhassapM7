@@ -32,10 +32,12 @@ CREATE TABLE `tbl_chat` (
     `id_emisor` INT(3) NOT NULL,
     `id_receptor` INT(3) NOT NULL,
     `mensaje_chat` VARCHAR(255) NOT NULL,
+    `fecha_hora_chat` DATETIME NOT NULL,
     CONSTRAINT `fk_chat_emisor` FOREIGN KEY (`id_emisor`) REFERENCES `tbl_usuarios`(`id_usu`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `fk_chat_receptor` FOREIGN KEY (`id_receptor`) REFERENCES `tbl_usuarios`(`id_usu`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
 
+-- INSERT USUARIOS
 INSERT INTO
     `tbl_usuarios`
 VALUES
@@ -54,4 +56,17 @@ VALUES
         'daniel@gmail.com',
         -- pwd: qweQWE123
         '$2y$10$kblAysOfzXAC22VbXsH/5enRooF5m1ShZEEazPbeGV7HqvdyuzECS'
-    )
+    );
+
+-- INSER AMIGOS
+INSERT INTO
+    `tbl_amistad`
+VALUES
+    (NULL, '1', '2', 1);
+
+-- INSERT CHATS
+INSERT INTO
+    `tbl_chat`
+VALUES
+    (NULL, '2', '1', 'hola', NOW()),
+    (NULL, '1', '2', 'Wenas', NOW());

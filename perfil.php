@@ -22,8 +22,9 @@ if (!isset($_SESSION['nick'])) {
 
     <body>
         <h2>Bienvenido <?php echo $nick ?></h2>
+
         <div class="container text-center">
-            <div class="row align-items-start">
+            <div class="row align-items-center">
                 <div class="col">
                     <?php
                     include './procesos_perfil/amigos.php';
