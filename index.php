@@ -52,27 +52,29 @@ session_start();
         <h2>Registrarse</h2>
         <form method="POST" action="register.php">
             <div class="mb-3">
-                <input type="text" name="name" class="form-control" placeholder="Nombre">
-                <span class="text-danger"><?php echo isset($_SESSION['error_nombre']) ? $_SESSION['error_nombre'] : ''; ?></span>
+                <input type="text" name="nombre_registro" class="form-control" placeholder="Nombre">
+                <span class="text-danger"><?php echo isset($_SESSION['nombre_registro']) ? $_SESSION['nombre_registro'] : ''; ?></span>
 
             </div>
             <div class="mb-3">
-                <input type="text" name="nick" class="form-control" placeholder="Nick">
+                <input type="text" name="nick_registro" class="form-control" placeholder="Nick">
+                <span class="text-danger"><?php echo isset($_SESSION['error_nick']) ? $_SESSION['error_nick'] : ''; ?></span>
+
+            </div>
+            <div class="mb-3">
+                <input type="email" name="email_registro" class="form-control" placeholder="Correo Electrónico">
                 <span class="text-danger"><?php echo isset($_SESSION['error_email']) ? $_SESSION['error_email'] : ''; ?></span>
 
             </div>
             <div class="mb-3">
-                <input type="email" name="email" class="form-control" placeholder="Correo Electrónico">
+                <input type="password" name="password_register" class="form-control" placeholder="Contraseña">
                 <span class="text-danger"><?php echo isset($_SESSION['error_password']) ? $_SESSION['error_password'] : ''; ?></span>
 
             </div>
             <div class="mb-3">
-                <input type="password" name="password" class="form-control" placeholder="Contraseña">
+                <input type="password" name="repetir_password" class="form-control" placeholder="Repetir Contraseña">
                 <span class="text-danger"><?php echo isset($_SESSION['error_repetir_password']) ? $_SESSION['error_repetir_password'] : ''; ?></span>
 
-            </div>
-            <div class="mb-3">
-                <input type="password" name="confirm_password" class="form-control" placeholder="Repetir Contraseña">
             </div>
             <button type="submit" class="btn btn-primary w-100">Registrarse</button>
         </form>
