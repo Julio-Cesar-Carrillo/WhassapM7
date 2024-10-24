@@ -7,7 +7,7 @@ $sql = "SELECT a.*,
         u2.nick_usu AS receptor
         FROM tbl_amistad AS a
         INNER JOIN tbl_usuarios AS u1 ON a.id_emisor = u1.id_usu
-        INNER JOIN tbl_usuarios AS u2 ON a.id_receptor = u2.id_usu AND boamistad=1  AND (id_emisor = $id OR id_receptor= $id);";
+        INNER JOIN tbl_usuarios AS u2 ON a.id_receptor = u2.id_usu AND boamistad=0  AND (id_emisor = $id OR id_receptor= $id);";
 
 $stmt = mysqli_prepare($con, $sql);
 mysqli_stmt_execute($stmt);
@@ -17,15 +17,15 @@ foreach ($resultado as $fila) {
     <table class="table" border="1px">
         <thead>
             <tr>
-                <th scope="col">Amigo</th>
+                <th scope="col">Solicitud de amigos</th>
                 <th scope="col">acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td><?php echo $fila['id_emisor'] == $id ? $fila['receptor'] : $fila['emisor']; ?></td>
-                <td><a href="chat.php?id='<?php echo $fila['id_emisor'] == $id ? $fila['id_receptor'] : $fila['id_emisor']; ?>' &nom=<?php echo $fila['id_emisor'] == $id ? $fila['receptor'] : $fila['emisor']; ?>">Mensaje</a>
-                    <a href="eliminar.php?id='<?php echo $fila['id_receptor'] == $id ?  $fila['id_emisor'] : $fila['id_receptor']; ?>'">Eliminar </a>
+                <td><a href="chat.php?id='<?php echo $fila['id_emisor'] == $id ? $fila['id_receptor'] : $fila['id_emisor']; ?>' &nom=<?php echo $fila['id_emisor'] == $id ? $fila['receptor'] : $fila['emisor']; ?>">Aceptar</a>
+                    <a href="eliminar.php?id='<?php echo $fila['id_receptor'] == $id ?  $fila['id_emisor'] : $fila['id_receptor']; ?>'">Rechazar </a>
                 </td>
                 </td>
             </tr>

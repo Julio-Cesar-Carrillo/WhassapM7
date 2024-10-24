@@ -36,7 +36,9 @@ if (!isset($_SESSION['nick'])) {
                     ?>
                 </div>
                 <div class="col">
-                    One of three columns
+                    <?php
+                    include_once './procesos_perfil/peticiones.php';
+                    ?>
                 </div>
             </div>
         </div>
