@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($num_rows > 0) {
                 $fila = mysqli_fetch_assoc($resultado);
                 if (password_verify($password, $fila['pwd_usu'])) {
+                    $_SESSION['id_user'] = $fila['id_usu'];
                     $_SESSION['nick'] = $fila['nick_usu'];
                     $_SESSION['nombre'] = $fila['nom_usu'];
                     header('location: perfil.php');
