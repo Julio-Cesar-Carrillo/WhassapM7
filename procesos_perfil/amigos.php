@@ -24,9 +24,6 @@ foreach ($resultado as $fila) {
         <tbody>
             <tr>
                 <td><?php echo $fila['id_emisor'] == $id ? $fila['receptor'] : $fila['emisor']; ?></td>
-                <td><a href="chat.php?id='<?php echo $fila['id_emisor'] == $id ? $fila['id_receptor'] : $fila['id_emisor']; ?>' &nom=<?php echo $fila['id_emisor'] == $id ? $fila['receptor'] : $fila['emisor']; ?>">Mensaje</a>
-                    <a href="eliminar.php?id='<?php echo $fila['id_receptor'] == $id ?  $fila['id_emisor'] : $fila['id_receptor']; ?>'">Eliminar </a>
-                </td>
                 </td>
             </tr>
         </tbody>
