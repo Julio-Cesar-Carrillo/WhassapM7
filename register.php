@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email_registro = htmlspecialchars(trim($_POST['email_registro']));
     $password_register = htmlspecialchars($_POST['password_register']);
     $repetir_password = htmlspecialchars($_POST['repetir_password']);
-    
+
     $errores = false; // Bandera para controlar si hay errores
 
     // Validar el nombre.
@@ -69,32 +69,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Si no hay errores, proceder a insertar el usuario en la base de datos
     try {
         include "./conexion.php";
-        
+
         // Cifrar la contraseña antes de guardarla
         $password_hashed = password_hash($password_register, PASSWORD_DEFAULT);
-        
-        // Preparar la consulta SQL
+
+
+        ////////////////////////////////
+        mysqli_autocommit($con, false);
+
+        mysqli_begin_transaction($con, MYSQLI_TRANS_START_READ_WRITE);
+
         $sql = "INSERT INTO tbl_usuarios (nom_usu, nick_usu, email_usu, pwd_usu) VALUES (?, ?, ?, ?)";
+
+        // Inicializar la conexion
         $stmt = mysqli_stmt_init($con);
+        // preparar con la query definida
+        mysqli_stmt_prepare($stmt, $sql);
+        // associamos los valores de los parametros del statement con las variables a enviar (i para numeros y s para string)
+        mysqli_stmt_bind_param($stmt, "ssss", $nombre_registro, $nick_registro, $email_registro, $password_hashed);
+        // executar el statement
+        mysqli_stmt_execute($stmt);
+        // Recuperar el ID de la  ultima query
+        $lastid = mysqli_insert_id($con);
+        // Se hace el commit y por lo tanto se confirman las dos consultas
+        mysqli_commit($conn);
 
-        if (mysqli_stmt_prepare($stmt, $sql)) {
-            mysqli_stmt_bind_param($stmt, "ssss", $nombre_registro, $nick_registro, $email_registro, $password_hashed);
-            mysqli_stmt_execute($stmt);
+        // Se cierra la conexión
+        mysqli_stmt_close($stmt1);
 
-            // Cerrar la conexión
-            mysqli_stmt_close($stmt);
-            mysqli_close($con);
-            // Deshacer los cambios en caso de error
-
-            // Redirigir al login o a una página de éxito
-            header("Location: login.php");
-            echo "correcto";
-            exit();
-        } else {
-
-            throw new Exception("Error al preparar la consulta SQL.");
-        }
-
+        // Destruimos todas las variables de sesión
+        session_unset();
+        // Destruimos la sesión
+        session_destroy();
+        header('Location: ' . './index.php');
+        echo "pedido registrado";
+        die();
     } catch (Exception $e) {
         // Deshacer los cambios en caso de error
         mysqli_rollback($conn);
@@ -107,4 +116,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 // Redirigir si se accede a esta página sin usar POST
 header("Location: index.php");
 exit();
-?>
