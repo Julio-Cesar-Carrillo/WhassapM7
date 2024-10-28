@@ -3,7 +3,7 @@ session_start();
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es">s
 
 <head>
     <meta charset="UTF-8">
@@ -13,8 +13,11 @@ session_start();
     <link rel="stylesheet" href="style.css">
 </head>
 
+
 <body>
-    <div class="form-container text-center">
+   
+    <div class="form-container text-center <?php echo isset($_SESSION['form']) && $_SESSION['form'] === 'register' ? 'd-none' : ''; ?>">
+
         <!-- Formulario de Inicio de Sesión -->
         <img src="./img/logo (2).png" alt="Iniciar Sesión" style="width: 100px; height: 100px; vertical-align: middle; margin-right: 20px;">
 
@@ -47,32 +50,33 @@ session_start();
         </div>
     </div>
 
-    <div class="form-container d-none" id="registerForm">
+    <div class="form-container <?php echo isset($_SESSION['form']) && $_SESSION['form'] === 'register' ? '' : 'd-none'; ?>" id="registerForm">
+
         <!-- Formulario de Registro -->
         <h2>Registrarse</h2>
         <form method="POST" action="register.php">
             <div class="mb-3">
-                <input type="text" name="nombre_registro" class="form-control" placeholder="Nombre">
+                <input type="text" name="nombre_registro" class="form-control" placeholder="Nombre" value="<?php if (isset($_SESSION['nombre_registro'])){ echo $_SESSION['nombre_registro'];} ?>">
                 <span class="text-danger"><?php echo isset($_SESSION['error_nombre']) ? $_SESSION['error_nombre'] : ''; ?></span>
 
             </div>
             <div class="mb-3">
-                <input type="text" name="nick_registro" class="form-control" placeholder="Nick">
+                <input type="text" name="nick_registro" class="form-control" placeholder="Nick" value="<?php if (isset($_SESSION['nick_registro'])){ echo $_SESSION['nick_registro'];} ?>">
                 <span class="text-danger"><?php echo isset($_SESSION['error_nick']) ? $_SESSION['error_nick'] : ''; ?></span>
 
             </div>
             <div class="mb-3">
-                <input type="email" name="email_registro" class="form-control" placeholder="Correo Electrónico">
+                <input type="email" name="email_registro" class="form-control" placeholder="Correo Electrónico" value="<?php if (isset($_SESSION['email_registro'])){ echo $_SESSION['email_registro'];} ?>">
                 <span class="text-danger"><?php echo isset($_SESSION['error_email']) ? $_SESSION['error_email'] : ''; ?></span>
 
             </div>
             <div class="mb-3">
-                <input type="password" name="password_register" class="form-control" placeholder="Contraseña">
+                <input type="password" name="password_register" class="form-control" placeholder="Contraseña" value="<?php if (isset($_SESSION['password_register'])){ echo $_SESSION['password_register'];} ?>">
                 <span class="text-danger"><?php echo isset($_SESSION['error_password']) ? $_SESSION['error_password'] : ''; ?></span>
 
             </div>
             <div class="mb-3">
-                <input type="password" name="repetir_password" class="form-control" placeholder="Repetir Contraseña">
+                <input type="password" name="repetir_password" class="form-control" placeholder="Repetir Contraseña" value="<?php if (isset($_SESSION['repetir_password'])){ echo $_SESSION['repetir_password'];} ?>">
                 <span class="text-danger"><?php echo isset($_SESSION['error_repetir_password']) ? $_SESSION['error_repetir_password'] : ''; ?></span>
 
             </div>
@@ -84,6 +88,7 @@ session_start();
             <p>¿Ya tienes una cuenta? <a href="#" class="text-white" onclick="toggleForm()">Inicia Sesión aquí</a></p>
         </div>
     </div>
+    
 
     <script>
         function toggleForm() {

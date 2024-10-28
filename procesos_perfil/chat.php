@@ -1,5 +1,4 @@
 <?php
-
 $id = $_SESSION['id_user'];
 
 $sql = "SELECT a.*, 
@@ -15,11 +14,19 @@ $resultado = mysqli_stmt_get_result($stmt);
 foreach ($resultado as $fila) {
 ?>
     <div>
-        <?php echo $fila['id_emisor'] == $id ?
-            // Si es igual 
-            "<p style= 'text-align:left'>" . $fila['receptor'] . ": " . $fila['mensaje_chat'] . "</p>"
-            // Si no es igual
-            : "<p style= 'text-align:rigth'>" . $fila['mensaje_chat'] . " :" . $fila['receptor'] . "</p>"; ?>
+        <?php if ($fila['id_emisor'] == $id) { ?>
+            <p style="text-align:left">
+                <?php echo $fila['receptor']." :" ?>
+                <br>
+                <?php echo $fila['mensaje_chat']; ?>
+            </p>
+        <?php } else { ?>
+            <p style="text-align:right">
+                <?php echo $fila['receptor']." :" ?>
+                <br>
+                <?php echo $fila['mensaje_chat']; ?>
+            </p>
+        <?php } ?>
     </div>
 <?php
 }

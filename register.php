@@ -1,9 +1,11 @@
 <?php
 // Iniciar sesión
 session_start();
-$_SESSION['frnreegister'] = 'si';
+$_SESSION['form'] = 'register';  // Indicamos que estamos en la página de registro
+
 // Inicializar variables de error en blanco
 $_SESSION['error_nombre'] = $_SESSION['error_nick'] = $_SESSION['error_email'] = $_SESSION['error_password'] = $_SESSION['error_repetir_password'] = "";
+$_SESSION['nombre_registro'] = $_SESSION['nick_registro'] = $_SESSION['email_registro'] = "";
 
 // Manejar el registro
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -34,6 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } elseif (!preg_match("/^[A-Za-z0-9_]+$/", $nick_registro)) {
         $_SESSION['error_nick'] = "El nick solo puede contener letras, números y guiones bajos.";
         $errores = true;
+    } else {
+        $_SESSION['nick_registro'] = $nick_registro;
     }
 
     // Validar el correo electrónico.
@@ -43,6 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } elseif (!filter_var($email_registro, FILTER_VALIDATE_EMAIL)) {
         $_SESSION['error_email'] = "El correo electrónico no es válido.";
         $errores = true;
+    } else {
+        $_SESSION['email_registro'] = $email_registro;
     }
 
     // Validar la contraseña.
@@ -70,45 +76,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
         include "./conexion.php";
 
-        // Cifrar la contraseña antes de guardarla
+        // Cifrar la contraseña antes de guardarla usando Bcrypt
         $password_hashed = password_hash($password_register, PASSWORD_DEFAULT);
 
-
-        ////////////////////////////////
+        // Iniciar transacción
         mysqli_autocommit($con, false);
-
         mysqli_begin_transaction($con, MYSQLI_TRANS_START_READ_WRITE);
 
         $sql = "INSERT INTO tbl_usuarios (nom_usu, nick_usu, email_usu, pwd_usu) VALUES (?, ?, ?, ?)";
 
-        // Inicializar la conexion
+        // Preparar el statement
         $stmt = mysqli_stmt_init($con);
-        // preparar con la query definida
         mysqli_stmt_prepare($stmt, $sql);
-        // associamos los valores de los parametros del statement con las variables a enviar (i para numeros y s para string)
         mysqli_stmt_bind_param($stmt, "ssss", $nombre_registro, $nick_registro, $email_registro, $password_hashed);
-        // executar el statement
         mysqli_stmt_execute($stmt);
-        // Recuperar el ID de la  ultima query
-        $lastid = mysqli_insert_id($con);
-        // Se hace el commit y por lo tanto se confirman las dos consultas
-        mysqli_commit($conn);
 
-        // Se cierra la conexión
-        mysqli_stmt_close($stmt1);
+        // Commit de la transacción
+        mysqli_commit($con);
 
-        // Destruimos todas las variables de sesión
+        // Cerrar la conexión y limpiar sesión
+        mysqli_stmt_close($stmt);
+        mysqli_close($con); // Asegúrate de cerrar la conexión también
         session_unset();
-        // Destruimos la sesión
-        session_destroy();
-        header('Location: ' . './index.php');
-        echo "pedido registrado";
-        die();
+        $_SESSION['registro_exitoso'] = "Has completado tu registro con éxito.";
+        header('Location: confirmacion.php');
+        exit();
     } catch (Exception $e) {
-        // Deshacer los cambios en caso de error
-        mysqli_rollback($conn);
+        // En caso de error, deshacer la transacción
+        mysqli_rollback($con);
 
-        echo "Error: " . $e->getMessage();
+        // Registrar el error
+        error_log($e->getMessage());
+
+        // Redirigir con un mensaje de error genérico
+        $_SESSION['error_general'] = "Hubo un problema al registrar el usuario. Por favor, intente nuevamente.";
+        header("Location: index.php");
         exit();
     }
 }
@@ -116,3 +118,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 // Redirigir si se accede a esta página sin usar POST
 header("Location: index.php");
 exit();
+?>
