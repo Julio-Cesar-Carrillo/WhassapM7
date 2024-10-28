@@ -27,6 +27,18 @@ $resultado = mysqli_stmt_get_result($stmt);
 
             <tr>
                 <td><?php echo $fila['id_emisor'] == $id ? $fila['receptor'] : $fila['emisor']; ?></td>
+                <td>
+                    <form action="Aceptar.php" method="post">
+                        <input type="hidden" name="id" value="<?php echo $fila['id_emisor'] == $id ? $fila['id_receptor'] : $fila['id_emisor']; ?>">
+                        <input type="submit" value="Mensaje">
+                    </form>
+                    <!-- </td>
+                <td> -->
+                    <form action="EliminarAmigo.php" method="post">
+                        <input type="hidden" name="id" value="<?php echo $fila['id_emisor'] == $id ? $fila['id_receptor'] : $fila['id_emisor']; ?>">
+                        <input type="submit" value="Eliminar">
+                    </form>
+                </td>
                 </td>
             </tr>
 

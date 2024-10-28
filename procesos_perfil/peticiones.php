@@ -23,11 +23,17 @@
         ?>
             <tr>
                 <td><?php echo $fila['id_emisor'] == $id ? $fila['receptor'] : $fila['emisor']; ?></td>
-                <td><a href="chat.php?id='<?php echo $fila['id_emisor'] == $id ? $fila['id_receptor']
-                                                                : $fila['id_emisor']; ?>' &nom=<?php echo $fila['id_emisor'] == $id ? $fila['receptor']
-                                                                                                        : $fila['emisor']; ?>">Aceptar</a>
-                    <a href="eliminar.php?id='<?php echo $fila['id_receptor'] == $id ?  $fila['id_emisor']
-                                                    : $fila['id_receptor']; ?>'">Rechazar </a>
+                <td>
+                    <form action="./procesos_perfil/aceptar.php" method="post">
+                        <input type="hidden" name="id" value="<?php echo $fila['id_emisor'] == $id ? $fila['id_receptor'] : $fila['id_emisor']; ?>">
+                        <input type="submit" value="Aceptar">
+                    </form>
+                    <!-- </td>
+                <td> -->
+                    <form action="eliminarAmigo.php" method="post">
+                        <input type="hidden" name="id" value="<?php echo $fila['id_emisor'] == $id ? $fila['id_receptor'] : $fila['id_emisor']; ?>">
+                        <input type="submit" value="Eliminar">
+                    </form>
                 </td>
             <?php
         }
