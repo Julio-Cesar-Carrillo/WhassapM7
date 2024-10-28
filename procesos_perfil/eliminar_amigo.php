@@ -24,12 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         $_SESSION['mensaje'] = "Error al eliminar el amigo: " . $e->getMessage();
     } finally {
         mysqli_close($con);
-        header("Location: perfil.php");
+        header("Location: ../perfil.php");
         exit();
     }
 } else {
     $_SESSION['mensaje'] = "Solicitud inválida.";
-    header("Location: perfil.php");
+    header("Location: ../perfil.php");
     exit();
 }
 ?>
