@@ -19,7 +19,7 @@ try {
                         <?php echo $fila['nom_usu']; ?>
                     </td>
                     <td>
-                        <form action="Aceptar.php" method="post">
+                        <form action="./procesos_perfil/añadir_amigo.php" method="post">
                             <input type="hidden" name="id" value="<?php echo $fila['id_usu'] ?>">
                             <input type="submit" value="Añadir">
                         </form>
