@@ -13,8 +13,7 @@ $stmt = mysqli_prepare($con, $sql);
 mysqli_stmt_execute($stmt);
 $resultado = mysqli_stmt_get_result($stmt);
 ?>
-
-<table class="table bg-light text-dark">
+<table class="table" border="1px">
     <thead>
         <tr>
             <th scope="col">Amigo</th>
