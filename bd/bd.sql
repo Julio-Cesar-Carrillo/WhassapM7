@@ -56,17 +56,27 @@ VALUES
         'daniel@gmail.com',
         -- pwd: qweQWE123
         '$2y$10$kblAysOfzXAC22VbXsH/5enRooF5m1ShZEEazPbeGV7HqvdyuzECS'
+    ),
+    (
+        NULL,
+        'Drax',
+        'Wilson',
+        'wilson@gmail.com',
+        -- pwd: qweQWE123
+        '$2y$10$kblAysOfzXAC22VbXsH/5enRooF5m1ShZEEazPbeGV7HqvdyuzECS'
     );
 
 -- INSER AMIGOS
 INSERT INTO
     `tbl_amistad`
 VALUES
-    (NULL, '1', '2', 1);
+    (NULL, '1', '2', 1),
+    (NULL, '1', '3', 0);
 
 -- INSERT CHATS
 INSERT INTO
     `tbl_chat`
 VALUES
     (NULL, '2', '1', 'hola', NOW()),
-    (NULL, '1', '2', 'Wenas', NOW());
+    (NULL, '1', '2', 'Wenas', NOW()),
+    (NULL, '1', '3', 'Hola', NOW());
