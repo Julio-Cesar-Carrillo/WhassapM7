@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
 
     try {
         // Grabar mensaje en tbl_chat
-        $sql = "INSERT INTO tbl_chat (id_emisor, id_receptor, mensaje_chat, fecha_hora_chat) VALUES (?, ?, ?, NOW())";
+        $sql = "INSERT INTO tbl_chat (id_chat,id_emisor, id_receptor, mensaje_chat, fecha_hora_chat) VALUES (?,?,?,?, NOW())";
         $stmt = mysqli_prepare($con, $sql);
         mysqli_stmt_bind_param($stmt, "iis", $_SESSION['id_user'], $receptorId, $mensaje);
         mysqli_stmt_execute($stmt);

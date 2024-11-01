@@ -57,13 +57,14 @@ if (!isset($_SESSION['nick'])) {
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-3 col-sm-12">
                     <div class="card card-custom bg-secondary text-white">
                         <div class="card-header">
                             Encuantra a un amigo
                         </div>
                         <div class="card-body">
-                            <?php include_once './procesos_perfil/buscar.php'; ?>
+                            <?php include_once './procesos_perfil/encontraramigo.php'; ?>
                         </div>
                         <div class="card-header">
                             Peticiones

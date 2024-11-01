@@ -3,9 +3,9 @@
 session_start();
 
 
-    include_once('conexion.php');
-
     try {
+
+        include_once('conexion.php');
         // Desactvar la autoejecución de consultas
         mysqli_autocommit($con, false);
 
@@ -31,11 +31,6 @@ session_start();
         // Cerrar la declaración
         mysqli_stmt_close($stmt1);
 
-        // Destruimos todas las variables de sesión menos el id_user
-        $id_user = $_SESSION['id_user'];
-        session_unset();
-        $_SESSION['id_user'] = $id_user;
-
         // Redirigir al perfil (no eliminar la sesión)
         header('Location: ' . '../perfil.php');
         exit();
@@ -43,7 +38,7 @@ session_start();
     } catch (Exception $e) {
         // Si se produce un error, hacer rollback y mostrar mensaje de error
         mysqli_rollback($con);
-        header('Location: ' . './perfil.php');
+        header('Location: ' . '../perfil.php');
         echo "Error en la transacción: " . $e->getMessage();
 
 }
