@@ -2,28 +2,34 @@
 session_start();
 include("./conexion.php");
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST['mensaje'])) {
-    $receptorId = $_POST['id'];
-    $mensaje = $_POST['mensaje'];
+if (!isset($_SESSION['id_user'])) {
+    header('Location: index.php');
+    exit;
+}
 
-    try {
-        // Grabar mensaje en tbl_chat
-        $sql = "INSERT INTO tbl_chat (id_emisor, id_receptor, mensaje_chat, fecha_hora_chat) VALUES (?, ?, ?, NOW())";
-        $stmt = mysqli_prepare($con, $sql);
-        mysqli_stmt_bind_param($stmt, "iis", $_SESSION['id_user'], $receptorId, $mensaje);
-        mysqli_stmt_execute($stmt);
+if (isset($_POST['mensaje']) && isset($_POST['chat_with'])) {
+    $mensaje = trim($_POST['mensaje']);
+    $idAmigo = (int)$_POST['chat_with'];
+    $idUsuario = $_SESSION['id_user'];
+    $fechaHoraChat = date('Y-m-d H:i:s'); // Obtener la fecha y hora actual
+
+    // Insertar el mensaje en la base de datos
+    $sql = "INSERT INTO tbl_chat (id_emisor, id_receptor, mensaje_chat, fecha_hora_chat) VALUES (?, ?, ?, ?)";
+    $stmt = mysqli_prepare($con, $sql);
+
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "iiss", $idUsuario, $idAmigo, $mensaje, $fechaHoraChat);
+        if (mysqli_stmt_execute($stmt)) {
+            // Mensaje enviado correctamente
+            header("Location: ../perfil.php?chat_with=" . $idAmigo); // Redirige al perfil y agrega el amigo con el que se chatea
+            exit;
+        } else {
+            echo "<p>Error al enviar el mensaje: " . mysqli_error($con) . "</p>";
+        }
         mysqli_stmt_close($stmt);
-
-        $_SESSION['mensaje'] = "Mensaje enviado con éxito.";
-    } catch (Exception $e) {
-        $_SESSION['mensaje'] = "Error al enviar el mensaje: " . $e->getMessage();
-    } finally {
-        mysqli_close($con);
-        header("Location: perfil.php");
-        exit();
+    } else {
+        echo "<p>Error en la consulta: " . mysqli_error($con) . "</p>";
     }
 } else {
-    $_SESSION['mensaje'] = "Solicitud inválida.";
-    header("Location: perfil.php");
-    exit();
+    echo "<p>Por favor, escribe un mensaje.</p>";
 }
