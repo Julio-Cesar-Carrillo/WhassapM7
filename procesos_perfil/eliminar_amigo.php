@@ -10,26 +10,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         mysqli_begin_transaction($con, MYSQLI_TRANS_START_READ_WRITE);
 
         // Eliminar amistad
-        $sql = "DELETE FROM tbl_amistad WHERE (id_emisor = ? AND id_receptor = ?) OR (id_emisor = ? AND id_receptor = ?)";
+        $sql = "DELETE FROM tbl_amistad 
+                WHERE (id_emisor = ? AND id_receptor = ?) 
+                OR (id_emisor = ? AND id_receptor = ?)";
         $stmt = mysqli_prepare($con, $sql);
         mysqli_stmt_bind_param($stmt, "iiii", $amigoId, $_SESSION['id_user'], $_SESSION['id_user'], $amigoId);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
 
+        // Eliminar historial de chat
+        $sqlChat = "DELETE FROM tbl_chat 
+                     WHERE (id_emisor = ? AND id_receptor = ?) 
+                     OR (id_emisor = ? AND id_receptor = ?)";
+        $stmtChat = mysqli_prepare($con, $sqlChat);
+        mysqli_stmt_bind_param($stmtChat, "iiii", $amigoId, $_SESSION['id_user'], $_SESSION['id_user'], $amigoId);
+        mysqli_stmt_execute($stmtChat);
+        mysqli_stmt_close($stmtChat);
+
         // Commit de la transacción
         mysqli_commit($con);
-        $_SESSION['mensaje'] = "Amigo eliminado con éxito.";
     } catch (Exception $e) {
         mysqli_rollback($con);
-        $_SESSION['mensaje'] = "Error al eliminar el amigo: " . $e->getMessage();
-    } finally {
-        mysqli_close($con);
-        header("Location: ../perfil.php");
-        exit();
     }
+    mysqli_close($con);
+    header("Location: ../perfil.php");
+    exit();
 } else {
     $_SESSION['mensaje'] = "Solicitud inválida.";
     header("Location: ../perfil.php");
     exit();
 }
-?>

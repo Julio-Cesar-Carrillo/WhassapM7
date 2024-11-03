@@ -56,8 +56,6 @@ $id = $_SESSION['id_user'];
                     </div>
                     <div class="card-body">
                         <?php include './procesos_perfil/chat.php'; ?>
-                        <!-- Formulario para enviar mensajes -->
-                      
                     </div>
                 </div>
 

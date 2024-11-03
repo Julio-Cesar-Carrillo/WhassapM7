@@ -1,5 +1,5 @@
 <?php
-include("./c    onexion.php");
+include("./conexion.php");
 
 if (!isset($_SESSION['id_user'])) {
     header('Location: index.php');
@@ -35,9 +35,9 @@ if (!isset($_SESSION['id_user'])) {
                 }
                 // Formulario para enviar mensajes
 ?>
-                <form action="./procesos_perfilmandar_mensaje.php" method="post" class="mt-3">
+                <form action="./procesos_perfil/mandar_mensaje.php" method="post" class="mt-3">
                     <div class="input-group">
-                        <input type="hidden" name="chat_with" value="<?php echo htmlspecialchars($idAmigo, ENT_QUOTES, 'UTF-8'); ?>">
+                        <input type="hidden" name="chat_with" value="<?php echo $idAmigo; ?>">
                         <input type="text" name="mensaje" class="form-control" placeholder="Escribe tu mensaje..." required>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </div>
@@ -47,7 +47,7 @@ if (!isset($_SESSION['id_user'])) {
                 echo "<p>No hay mensajes entre tú y este usuario.</p>";
                 // Formulario para enviar mensajes
             ?>
-                <form action="mandar_mensaje.php" method="post" class="mt-3">
+                <form action="./procesos_perfil/mandar_mensaje.php" method="post" class="mt-3">
                     <div class="input-group">
                         <input type="hidden" name="chat_with" value="<?php echo htmlspecialchars($idAmigo, ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="text" name="mensaje" class="form-control" placeholder="Escribe tu mensaje..." required>
