@@ -28,12 +28,12 @@
                 <td>
                     <form action="./procesos_perfil/aceptar.php" method="post" style="display: inline;">
                         <input type="hidden" name="id" value="<?php echo $fila['id_emisor']; ?>">
-                        <input type="submit" value="Aceptar">
+                        <input type="submit" class="btn btn-primary btn-sm" value="Aceptar">
                     </form>
 
                     <form action="./procesos_perfil/eliminar_amigo.php" method="post" style="display: inline;">
                         <input type="hidden" name="id" value="<?php echo $fila['id_emisor']; ?>">
-                        <input type="submit" value="Eliminar">
+                        <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
                     </form>
                 </td>
             </tr>
