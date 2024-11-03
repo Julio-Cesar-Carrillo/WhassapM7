@@ -36,50 +36,48 @@ $id = $_SESSION['id_user'];
 </head>
 
 <body class="text-white">
-<div class="container text-center welcome">
-    <h2 class="my-4">Bienvenido, <?php echo htmlspecialchars($nick, ENT_QUOTES, 'UTF-8'); ?>!</h2>
-    <div class="row">
-        <div class="col-md-3 col-sm-12 mb-4">
-            <div class="card card-custom bg-secondary text-white">
-                <div class="card-header">
-                    Amigos
-                </div>
-                <div class="card-body">
-                    <?php include './procesos_perfil/amigos.php'; ?>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card card-custom bg-secondary text-white">
-                <div class="card-header">
-                    Chat
-                </div>
-                <div class="card-body">
-                    <?php include './procesos_perfil/chat.php'; ?>
+    <div class="container text-center welcome">
+        <h2 class="my-4">Bienvenido, <?php echo htmlspecialchars($nick, ENT_QUOTES, 'UTF-8'); ?>!</h2>
+        <div class="row">
+            <div class="col-md-3 col-sm-12 mb-4">
+                <div class="card card-custom bg-secondary text-white">
+                    <div class="card-header">
+                        Amigos
+                    </div>
+                    <div class="card-body">
+                        <?php include './procesos_perfil/amigos.php'; ?>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="col-md-6 col-sm-12 mb-4">
+                <div class="card card-custom bg-secondary text-white">
+                    <div class="card-header">
+                        Chat
+                    </div>
+                    <div class="card-body">
+                        <?php include './procesos_perfil/chat.php'; ?>
+                    </div>
+                </div>
 
-        <div class="col-md-3 col-sm-12 mb-4">
-            <div class="card card-custom bg-secondary text-white">
-                <div class="card-header">
-                    Encuentra a un amigo
-                </div>
-                <div class="card-body">
-                    <?php include_once './procesos_perfil/encontraramigo.php'; ?>
-                </div>
-
-                <div class="card-header">
-                    Peticiones
-                </div>
-                <div class="card-body">
-                    <?php include_once './procesos_perfil/peticiones.php'; ?>
+                <div class="col-md-3 col-sm-12 mb-4">
+                    <div class="card card-custom bg-secondary text-white ">
+                        <div class="card-header">
+                            Encuentra a un amigo
+                        </div>
+                        <div class="card-body">
+                            <?php include_once './procesos_perfil/encontraramigo.php'; ?>
+                        </div>
+                        <div class="card-header">
+                            Peticiones
+                        </div>
+                        <div class="card-body">
+                            <?php include_once './procesos_perfil/peticiones.php'; ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- Bootstrap JS y dependencias -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybIVfK4x2KSjF9FNUd1clS6zepcaZG8RZ7v0dkK8eQf6XA7ap" crossorigin="anonymous"></script>
