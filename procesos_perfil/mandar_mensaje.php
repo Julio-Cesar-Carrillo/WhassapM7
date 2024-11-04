@@ -1,7 +1,7 @@
 <?php
 // Iniciar la sesión
 session_start();
-include("./conexion.php");
+include("../conexion.php");
 
 // Verifica si el usuario ha iniciado sesión
 if (!isset($_SESSION['id_user'])) {

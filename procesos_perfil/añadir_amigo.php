@@ -5,7 +5,7 @@ session_start();
 
     try {
 
-        include_once('conexion.php');
+        include_once('../conexion.php');
         // Desactvar la autoejecución de consultas
         mysqli_autocommit($con, false);
 

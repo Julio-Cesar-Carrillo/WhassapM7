@@ -1,7 +1,7 @@
 <?php
 
 // Incluye el archivo que contiene la conexión a la base de datos
-include("./procesos_perfil/conexion.php");
+include("./conexion.php");
 
 // Guardar el término de búsqueda en la sesión si está definido
 if (isset($_GET['search'])) {

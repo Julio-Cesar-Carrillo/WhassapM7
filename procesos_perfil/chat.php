@@ -11,7 +11,7 @@ if (isset($_GET['chat_with'])) {
     $idUsuario = $_SESSION['id_user'];
 
     // Meta refresh para actualizar el chat cada 5 segundos
-    echo '<meta http-equiv="refresh" content="5">';
+    echo '<meta http-equiv="refresh" content="8">';
 
     // Consulta para obtener los mensajes solo entre el usuario actual y el amigo específico
     $sql = "SELECT a.*, u1.nick_usu AS emisor, u2.nick_usu AS receptor
